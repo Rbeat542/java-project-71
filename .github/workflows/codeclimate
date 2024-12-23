@@ -1,0 +1,8 @@
+name: Publish code coverage
+      uses: paambaati/codeclimate-action@v9.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{secrets.CC_ID}}
+        JACOCO_SOURCE_PATH: ${{/github.com/Rbeat542/java-project-71}}/app/src/main/java
+      with:
+         coverageCommand: make report
+         coverageLocations: ${{github.com/Rbeat542/java-project-71}}app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
