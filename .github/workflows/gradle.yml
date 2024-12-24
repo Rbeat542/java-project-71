@@ -19,3 +19,8 @@ jobs:
           gradle-version: 8.7
       - run: ./gradlew checkstyleMain
       - run: ./gradlew test
+
+      #- run: make install
+      #- run: make lint
+      #- run: make test
+      #- uses: hexlet-components/hello-from-hexlet-action@release
