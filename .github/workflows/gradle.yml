@@ -1,4 +1,4 @@
-name: Java CI with gradle (based on https://github.com/hexlet-boilerplates/java-package/blob/main/.github/workflows/main.yml)
+name: Java CI with gradle and CodeClimate
 
 on:
   - push
@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
       - uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 8.7
+          gradle-version: 8.8
       - run: ./gradlew checkstyleMain
       - run: ./gradlew test
       - name: Publish code coverage
