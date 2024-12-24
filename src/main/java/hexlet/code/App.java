@@ -70,8 +70,6 @@ class App implements Callable<Integer> {
         Map<String, Object> json2 = mapSort(mapper.readValue(file2Contents,
             new TypeReference<Map<String, Object>>() { }));
         ArrayList<String> resultMapUnsorted = generate(json1, json2);
-        //resultMapUnsorted = generate(json2, json1);
-        
         System.out.println("{");
         for (var line :resultMapUnsorted) {
             System.out.println(line);
