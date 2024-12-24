@@ -23,16 +23,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
 }
 
-tasks.test {
-    useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
-
-}
-
 jacoco {
     toolVersion = "0.8.12"
     reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
