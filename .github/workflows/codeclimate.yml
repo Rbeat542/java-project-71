@@ -1,4 +1,7 @@
 name: Publish code coverage
+on:
+  - push
+  - pull_request
       uses: paambaati/codeclimate-action@v9.0.0
       env:
         CC_TEST_REPORTER_ID: ${{secrets.CC_ID}}
