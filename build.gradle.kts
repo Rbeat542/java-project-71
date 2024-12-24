@@ -2,6 +2,7 @@ plugins {
     application
     id("java")
     checkstyle
+    jacoco
 }
 
 group = "hexlet.code"
@@ -24,4 +25,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+    reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
 }
