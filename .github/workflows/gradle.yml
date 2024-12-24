@@ -25,7 +25,7 @@ jobs:
       #- run: make test
       #- uses: hexlet-components/hello-from-hexlet-action@release
 
-name: Publish code coverage
+name2: Publish code coverage
       uses: paambaati/codeclimate-action@v9.0.0
       env:
         CC_TEST_REPORTER_ID: ${{secrets.CC_ID}}
