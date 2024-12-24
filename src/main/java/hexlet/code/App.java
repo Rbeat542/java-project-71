@@ -33,12 +33,12 @@ class App implements Callable<Integer> {
     boolean usageHelpRequested;
 
     @Parameters(description = "path to first file",
-        defaultValue = "/home/vboxuser/java-project-71/app/src/main/java/hexlet/code/file1.json",
+        defaultValue = "src/test/resources/file1.json",
         paramLabel = "filepath1")
     private File file1 = new File("file1,json");
 
     @Parameters(description = "path to second file",
-        defaultValue = "/home/vboxuser/java-project-71/app/src/main/java/hexlet/code/file2.json",
+        defaultValue = "src/test/resources/file2.json",
         paramLabel = "filepath2")
     private File file2 = new File("file2.json");
 
@@ -69,16 +69,9 @@ class App implements Callable<Integer> {
             new TypeReference<Map<String, Object>>() { }));
         Map<String, Object> json2 = mapSort(mapper.readValue(file2Contents,
             new TypeReference<Map<String, Object>>() { }));
-        ArrayList<String> resultMapUnsorted = generateMap(json1, json2);
-
-        var entries2 = json2.entrySet();
-        for (var entry2 : entries2) {
-            if (json1.containsKey(entry2.getKey()))    {
-                resultMapUnsorted.add("  + " + entry2.getKey() + ": " + entry2.getValue());
-            }
-            resultMapUnsorted.add("  + " + entry2.getKey() + ": " + entry2.getValue());
-        }
-
+        ArrayList<String> resultMapUnsorted = generate(json1, json2);
+        //resultMapUnsorted = generate(json2, json1);
+        
         System.out.println("{");
         for (var line :resultMapUnsorted) {
             System.out.println(line);
@@ -87,26 +80,38 @@ class App implements Callable<Integer> {
         return 0;
     }
 
-    private ArrayList<String> generateMap(Map<String, Object> json1, Map<String, Object> json2) {
+    private ArrayList<String> generate(Map<String, Object> json1, Map<String, Object> json2) {
         var entries = json1.entrySet();
         for (var entry : entries) {
-            var generatedString = generate(entry.getKey(), entry.getValue(), json1, json2);
+            var tempKey = entry.getKey();
+            var tempValue = entry.getValue();
+            var generatedString = generateString(tempKey, tempValue, json1, json2);
             result.add(generatedString);
+            if ((generatedString.startsWith("  - ")) && json2.containsKey(tempKey)) {
+                result.add("  + " + tempKey + ": " + json2.get(tempKey));
+                json2.remove(tempKey);
+            }
+        }
+        if (!json2.isEmpty()) {
+            var otherEntries = json2.entrySet();
+            for (var otherEntry : otherEntries) {
+                result.add("  + " + otherEntry.getKey() + ": " + otherEntry.getValue());
+            }
         }
         return result;
     }
 
-    private String generate(String key, Object value, Map<String, Object> json1, Map<String, Object> json2) {
-        String newLine = "";
+    private String generateString(String key, Object value, Map<String, Object> json1, Map<String, Object> json2) {
+        String generatedLine = "";
         if (json2.containsKey(key) && json2.get(key).equals(value))    {
-            newLine = "    "    + key + ": " + value;
+            generatedLine = "    "    + key + ": " + value;
             json2.remove(key);
         } else if (json2.containsKey(key) && !json2.get(key).equals(value)) {
-            newLine = "  - " + key + ": " + value;
+            generatedLine = "  - " + key + ": " + value;
         } else {
-            newLine = "  - " + key + ": " + value;
+            generatedLine = "  - " + key + ": " + value;
         }
-        return newLine;
+        return generatedLine;
     }
 
     private HashMap<String, Object> mapSort(Map<String, Object> mapUnsorted) {
