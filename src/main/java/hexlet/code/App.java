@@ -4,9 +4,6 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,16 +31,16 @@ class App implements Callable<Integer> {
     @Parameters(description = "path to first file",
         defaultValue = "src/test/resources/file1.json",
         paramLabel = "filepath1")
-    private File file1 = new File("file1,json");
+    static File file1 = new File("file1.json");
 
     @Parameters(description = "path to second file",
         defaultValue = "src/test/resources/file2.json",
         paramLabel = "filepath2")
-    private File file2 = new File("file2.json");
+    static File file2 = new File("file2.json");
 
     public static void main(String... args) throws Exception {
         int exitCode = new CommandLine(new App()).execute(args);
-        //System.exit(0);
+        System.exit(0);
     }
 
     @Override
@@ -69,16 +66,8 @@ class App implements Callable<Integer> {
     }
 
     public static ArrayList<String> generate(Path path1, Path path2) throws Exception {
-        byte[] file1Contents = Files.readAllBytes(path1);
-        byte[] file2Contents = Files.readAllBytes(path2);
-        ObjectMapper mapper = new ObjectMapper();
-        HashMap<String, Object> json1Map = mapper.readValue(file1Contents,
-                new TypeReference<HashMap<String, Object>>() {
-                });
-        HashMap<String, Object> json2Map = mapper.readValue(file2Contents,
-                new TypeReference<HashMap<String, Object>>() {
-                });
-
+        HashMap<String, Object> json1Map = Parser.parseFile(path1);
+        HashMap<String, Object> json2Map = Parser.parseFile(path2);
         HashMap<String, Object> joinedUnsortedMap = new HashMap<String, Object>();
         joinedUnsortedMap.putAll(json1Map);
         joinedUnsortedMap.putAll(json2Map);
@@ -88,7 +77,8 @@ class App implements Callable<Integer> {
         for (var key : keys) {
             Object valueInMap1 = json1Map.get(key);
             Object valueInMap2 = json2Map.get(key);
-            if (json1Map.containsKey(key) && json2Map.containsKey(key) && valueInMap2.equals(valueInMap1)) {
+            if (json1Map.containsKey(key) && json2Map.containsKey(key)
+                    && valueInMap2.equals(valueInMap1)) {
                 result.add("    " + key + ": " + json1Map.get(key));
             } else if (json1Map.containsKey(key) && json2Map.containsKey(key) && !valueInMap2.equals(valueInMap1)) {
                 result.add("  - " + key + ": " + valueInMap1);
