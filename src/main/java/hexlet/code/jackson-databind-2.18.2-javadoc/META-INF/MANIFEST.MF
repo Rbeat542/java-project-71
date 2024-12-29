@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Implementation-Title: jackson-databind
+Implementation-Version: 2.18.2
+X-Compile-Target-JDK: 1.8
+Specification-Vendor: FasterXML
+Specification-Title: jackson-databind
+X-Compile-Source-JDK: 1.8
+Build-Jdk-Spec: 1.8
+Created-By: Maven Javadoc Plugin 3.8.0
+Specification-Version: 2.18
+Implementation-Vendor: FasterXML
+

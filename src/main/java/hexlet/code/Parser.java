@@ -12,9 +12,10 @@ public class Parser {
     public static HashMap<String, Object> parseFile(Path path) throws Exception {
         byte[] file1Contents = Files.readAllBytes(path);
         var mapper = chooseMapper(path);
-        return mapper.readValue(file1Contents,
+        HashMap<String, Object> result = mapper.readValue(file1Contents,
             new TypeReference<HashMap<String, Object>>() {
             });
+        return result;
     }
 
     public static ObjectMapper chooseMapper(Path path) throws Exception {
@@ -24,8 +25,8 @@ public class Parser {
         } else if ((extensionOfFile.equals("yml") || extensionOfFile.equals("yaml"))) {
             return YAMLMapper.builder().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER).build();
         } else {
-            System.out.println("Format of files not specified. Applying JSON format by default");
-            throw new Exception("Wrong extension of file(s) !");
+            System.out.println("Format of file(s) is wrong or not specified. Applying JSON format by default");
+            throw new Exception("Format of file(s) is wrong or not specified");
         }
     }
 

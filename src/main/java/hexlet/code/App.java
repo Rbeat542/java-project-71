@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
     description = "Compares two configuration files and shows a difference.")
@@ -57,11 +56,13 @@ class App implements Callable<Integer> {
         }
 
         ArrayList<String> resultMapUnsorted = generate(path1, path2);
-        System.out.println("{");
-        for (var line :resultMapUnsorted) {
-            System.out.println(line);
+        if (format.equals("stylish")) {
+            System.out.println("{");
+            for (var line :resultMapUnsorted) {
+                System.out.println(line);
+            }
+            System.out.println("}");
         }
-        System.out.println("}");
         return 0;
     }
 
@@ -75,8 +76,8 @@ class App implements Callable<Integer> {
         ArrayList<String> result = new ArrayList<>();
         var keys = joinedMap.keySet();
         for (var key : keys) {
-            Object valueInMap1 = json1Map.get(key);
-            Object valueInMap2 = json2Map.get(key);
+            Object valueInMap1 = String.valueOf(json1Map.get(key)); //toString added
+            Object valueInMap2 = String.valueOf(json2Map.get(key));  //toString added
             if (json1Map.containsKey(key) && json2Map.containsKey(key)
                     && valueInMap2.equals(valueInMap1)) {
                 result.add("    " + key + ": " + json1Map.get(key));
@@ -93,13 +94,18 @@ class App implements Callable<Integer> {
     }
 
     private static HashMap<String, Object> mapSort(Map<String, Object> mapUnsorted) {
-        HashMap<String, Object> mapSorted = mapUnsorted.entrySet()
+        /* HashMap<String, Object> mapSorted = mapUnsorted.entrySet()
             .stream()
             .sorted(Map.Entry.comparingByKey())
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
                 Map.Entry::getValue,
-                (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+                (oldValue, newValue) -> oldValue, LinkedHashMap::new)); */
+        HashMap<String, Object> mapSorted = new LinkedHashMap<>();
+        mapUnsorted.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEachOrdered(x -> mapSorted.put(x.getKey(), x.getValue()));
+
         return mapSorted;
     }
 }

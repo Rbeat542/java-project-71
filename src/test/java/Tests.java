@@ -1,11 +1,9 @@
 package hexlet.code;
 
-//import com.fasterxml.jackson.core.JsonParseException;
 import org.junit.jupiter.api.Test;
 import static hexlet.code.App.generate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-//import java.lang.Exception.ApplicationException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,32 +25,32 @@ public class Tests {
     @Test
     public void testFirstLineOfJsonFile() throws Exception {
         ArrayList<String> results = generate(testfile1, testfile2);
-        assertEquals("  - follow: false", results.get(0));
+        assertEquals("    chars1: [a, b, c]", results.get(0));
     }
 
     @Test
     public void testLastLineOfJsonFile() throws Exception {
         ArrayList<String> results = generate(testfile1, testfile2);
-        assertEquals("  + verbose: true", results.get(results.size() - 1));
+        assertEquals("  + setting3: none", results.get(results.size() - 1));
     }
 
     @Test
     public void testFirstLineOfYmlFile() throws Exception {
         ArrayList<String> results = App.generate(testfile3, testfile4);
-        assertEquals("  - follow: false", results.get(0));
+        assertEquals("    chars1: [a, b, c]", results.get(0));
     }
 
     @Test
     public void testLastLineofYmlFile() throws Exception {
         ArrayList<String> results = App.generate(testfile3, testfile4);
-        assertEquals("  + verbose: true", results.get(results.size() - 1));
+        assertEquals("  + setting3: none", results.get(results.size() - 1));
     }
 
     @Test
     public void testUknownFileTypeException() throws Exception {
         assertThrows(Exception.class, () -> {
             App.generate(testfile5, testfile4);
-            throw new Exception("Wrong extension of file(s) !");
+            throw new Exception("Format of file(s) is wrong or not specified");
         });
     }
 
