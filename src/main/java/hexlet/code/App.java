@@ -40,17 +40,14 @@ class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-
         Path path1 = Paths.get(file1.toString()).toAbsolutePath().normalize();
         if (!Files.exists(path1)) {
             throw new Exception("File '" + path1 + "' does not exist");
         }
-
         Path path2 = Paths.get(file2.toString()).toAbsolutePath().normalize();
         if (!Files.exists(path2)) {
             throw new Exception("File '" + path2 + "' does not exist");
         }
-
         String resultOfComparison = Differ.generate(path1, path2, format);
         System.out.println(resultOfComparison);
         return 0;

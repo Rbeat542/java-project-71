@@ -16,9 +16,6 @@ public class Differ  {
         joinedUnsortedMap.putAll(json2Map);
         HashMap<String, Object> joinedMap = mapSort(joinedUnsortedMap);
         String line = "";
-        if (format.equals("stylish")) {
-            line = line + "{";
-        }
         var keys = joinedMap.keySet();
         for (var key : keys) {
             var value1 = json1Map.get(key);
@@ -40,19 +37,17 @@ public class Differ  {
             }
         }
         if (format.equals("stylish")) {
-            line = line + "\n" + "}";
+            line = "\n" + "{" + line + "\n" + "}";
+        }
+
+        if (format.equals("json")) {
+            line = "\n" + "{" + line + "\n" + "}";
+            line = line.replace(",\n}", "\n}");
         }
         return line;
     }
 
     private static HashMap<String, Object> mapSort(Map<String, Object> mapUnsorted) {
-        /* HashMap<String, Object> mapSorted = mapUnsorted.entrySet()
-            .stream()
-            .sorted(Map.Entry.comparingByKey())
-            .collect(Collectors.toMap(
-                Map.Entry::getKey,
-                Map.Entry::getValue,
-                (oldValue, newValue) -> oldValue, LinkedHashMap::new)); */
         HashMap<String, Object> mapSorted = new LinkedHashMap<>();
         mapUnsorted.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
