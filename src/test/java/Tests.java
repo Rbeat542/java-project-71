@@ -1,13 +1,12 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
-import static hexlet.code.App.generate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static hexlet.code.Differ.generate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class Tests {
     static Path testfile1 = getFixturePath("file1.json");
@@ -24,32 +23,36 @@ public class Tests {
 
     @Test
     public void testFirstLineOfJsonFile() throws Exception {
-        ArrayList<String> results = generate(testfile1, testfile2);
-        assertEquals("    chars1: [a, b, c]", results.get(0));
+        String expected = "    chars1: [a, b, c]\n  - chars2: [d, e, f]";
+        String results1 = generate(testfile1, testfile2, "stylish");
+        assertTrue(results1.contains(expected));
     }
 
     @Test
     public void testLastLineOfJsonFile() throws Exception {
-        ArrayList<String> results = generate(testfile1, testfile2);
-        assertEquals("  + setting3: none", results.get(results.size() - 1));
+        String expected = "Property 'chars2' was updated. From [complex value] to false";
+        String results2 = generate(testfile1, testfile2, "plain");
+        assertTrue(results2.contains(expected));
     }
 
     @Test
     public void testFirstLineOfYmlFile() throws Exception {
-        ArrayList<String> results = App.generate(testfile3, testfile4);
-        assertEquals("    chars1: [a, b, c]", results.get(0));
+        String expected = "    chars1: [a, b, c]\n  - chars2: [d, e, f]";
+        String results3 = generate(testfile3, testfile4, "stylish");
+        assertTrue(results3.contains(expected));
     }
 
     @Test
-    public void testLastLineofYmlFile() throws Exception {
-        ArrayList<String> results = App.generate(testfile3, testfile4);
-        assertEquals("  + setting3: none", results.get(results.size() - 1));
+    public void testLastLineOfYmlFile() throws Exception {
+        String expected = "Property 'chars2' was updated. From [complex value] to false";
+        String results4 = generate(testfile3, testfile4, "plain");
+        assertTrue(results4.contains(expected));
     }
 
     @Test
     public void testUknownFileTypeException() throws Exception {
         assertThrows(Exception.class, () -> {
-            App.generate(testfile5, testfile4);
+            Differ.generate(testfile5, testfile4, "plain");
             throw new Exception("Format of file(s) is wrong or not specified");
         });
     }
@@ -57,7 +60,7 @@ public class Tests {
   /*  @Test
     public void testWrongPathOfFile1Exception() throws Exception {
         assertThrows(Exception.class, () -> {
-            App.generate(testfile6, testfile4);
+            Differ.generate(testfile6, testfile4);
             throw new Exception("\"File '\" + path1 + \"' does not exist\"");
         });
     } */
