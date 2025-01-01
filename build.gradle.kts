@@ -1,7 +1,6 @@
 plugins {
     application
     id("java")
-    id("jacoco")
     checkstyle
     jacoco
 }
@@ -28,12 +27,19 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
     testLogging {
         showStandardStreams = true
     }
 }
 
+jacoco {
+    toolVersion = "0.8.12"
+    reportsDirectory = layout.buildDirectory.dir(layout.buildDirectory.dir("reports/jacoco"))
+}
+
 tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
     reports {
         xml.required = true
         html.required = true
