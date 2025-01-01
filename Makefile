@@ -19,10 +19,10 @@ test:
 	make -C app test
 
 report:
-	make -C app report
+	./gradlew jacocoTestReport
 
 lint:
-	make -C app lint
+	./gradlew checkstyleMain
 
 build-run: build run
 
