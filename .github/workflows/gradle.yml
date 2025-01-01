@@ -14,9 +14,9 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 8.8
+          gradle-version: 8.7
       - run: ./gradlew checkstyleMain
       - run: ./gradlew test
       - name: Publish code coverage
@@ -27,5 +27,4 @@ jobs:
         with:
           coverageCommand: make report
           debug : true
-          coverageCommand: make -C app report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
