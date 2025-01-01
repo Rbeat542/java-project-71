@@ -33,7 +33,7 @@ tasks.test {
     }
 }
 
-jacocoTestReport {
+tasks.jacocoTestReport {
     reports {
         xml.required = true
         html.required = true
