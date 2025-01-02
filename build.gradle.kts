@@ -1,17 +1,17 @@
 plugins {
     application
-    id("java")
-    checkstyle
     jacoco
+    id("java")
+    id("checkstyle")
+
 }
 
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass = "hexlet.code.App"
+    mainClass.set("hexlet.code.App")
 }
-
 repositories {
     mavenCentral()
 }
@@ -28,13 +28,17 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     testLogging {
-        showStandardStreams = true
-    }
+        testLogging {
+            exceptionFormat = TestExceptionFormat.FULL
+            events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
+            showStandardStreams = true
+       }
 }
 
 tasks.jacocoTestReport {
     reports {
         xml.required = true
         html.required = true
+        csv.required = true
     }
 }
