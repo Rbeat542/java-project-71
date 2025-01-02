@@ -1,17 +1,17 @@
 plugins {
     application
-    jacoco
     id("java")
-    id("checkstyle")
-
+    checkstyle
+    jacoco
 }
 
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass.set("hexlet.code.App")
+    mainClass = "hexlet.code.App"
 }
+
 repositories {
     mavenCentral()
 }
@@ -27,18 +27,16 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
     testLogging {
-        testLogging {
-            exceptionFormat = TestExceptionFormat.FULL
-            events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
-            showStandardStreams = true
-       }
+        showStandardStreams = true
+    }
 }
 
 tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
     reports {
         xml.required = true
         html.required = true
-        csv.required = true
     }
 }
