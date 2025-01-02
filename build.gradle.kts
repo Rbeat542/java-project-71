@@ -34,12 +34,10 @@ tasks.test {
 }
 
 tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
     reports {
-        xml {
-            enabled true
-            destination file("$buildDir/reports/jacoco/test/jacoco.xml")
-        }
-        html.required = true
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.dir("jacoco")
+        csv.required = true
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
     }
 }
