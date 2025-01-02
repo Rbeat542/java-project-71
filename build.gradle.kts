@@ -33,15 +33,13 @@ tasks.test {
     }
 }
 
-jacoco {
-    toolVersion = "0.8.12"
-    reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
-}
-
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
     reports {
-        xml.required = true
+        xml {
+            enabled true
+            destination file("$buildDir/reports/jacoco/test/jacoco.xml")
+        }
         html.required = true
     }
 }
