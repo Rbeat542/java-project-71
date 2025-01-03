@@ -1,15 +1,13 @@
 package hexlet.code.formatters;
 
-import java.lang.reflect.Array;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class Plain {
 
     public static String preFormat(Object value) {
         String newValue = "";
-        List<String> list = List.of("HashMap", "Map","LinkedHashMap", "ArrayList", "Array", "LinkedList");
+        List<String> list = List.of("HashMap", "Map", "LinkedHashMap", "ArrayList", "Array", "LinkedList");
         if (Objects.equals(value, null)) {
             newValue = "null";
         } else {
