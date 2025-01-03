@@ -45,10 +45,10 @@ public class Differ  {
 
     public static String afterFormat(String line, String format) {
         if (format.equals("stylish")) {
-            line = "\n" + "{" + line + "\n" + "}";
+            line = "{" + line + "\n" + "}";
         }
         if (format.equals("json")) {
-            line = "\n" + "{" + line + "\n" + "}";
+            line = "{" + line + "\n" + "}";
             line = line.replace(",\n}", "\n}");
         }
         return line;
