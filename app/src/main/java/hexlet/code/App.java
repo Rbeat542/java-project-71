@@ -18,20 +18,20 @@ class App implements Callable<Integer> {
     private String format = "stylish";
 
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Display version information and exit.")
-    boolean versionInfoRequested;
+    private boolean versionInfoRequested;
 
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
-    boolean usageHelpRequested;
+    private boolean usageHelpRequested;
 
     @Parameters(description = "path to first file",
             defaultValue = "src/test/resources/file1.json",
             paramLabel = "filepath1")
-    static File file1 = new File("file1.json");
+    private static File file1 = new File("file1.json");
 
     @Parameters(description = "path to second file",
             defaultValue = "src/test/resources/file2.json",
             paramLabel = "filepath2")
-    static File file2 = new File("file2.json");
+    private static File file2 = new File("file2.json");
 
     public static void main(String... args) throws Exception {
         int exitCode = new CommandLine(new App()).execute(args);

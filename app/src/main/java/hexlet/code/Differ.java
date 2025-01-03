@@ -53,11 +53,7 @@ public class Differ  {
         }
         if (format.equals("plain")) {
             line = line.substring(1);
-        }
-        else {
-
-        }
-        return line;
+        } return line;
     }
 
     public static String generate(String path1, String path2) throws Exception {

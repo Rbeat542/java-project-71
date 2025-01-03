@@ -7,12 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Tests {
 
-    static String testfile1 = "src/test/resources/file1.json";
-    static String testfile2 = "src/test/resources/file2.json";
-    static String testfile3 = "src/test/resources/file1.yml";
-    static String testfile4 = "src/test/resources/file2.yml";
-    static String testfile5 = "src/test/resources/file1.ml";
-    static String testfile6 = "src/test/resources/file9.yml";
+    private static String testfile1 = "src/test/resources/file1.json";
+    private static String testfile2 = "src/test/resources/file2.json";
+    private static String testfile3 = "src/test/resources/file1.yml";
+    private static String testfile4 = "src/test/resources/file2.yml";
+    private static String testfile5 = "src/test/resources/file1.ml";
 
     @Test
     public void testStylishJsonContainsString() throws Exception {
