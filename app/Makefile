@@ -19,10 +19,10 @@ test:
 	./gradlew test
 
 report:
-	gradle jacocoTestReport
+	./gradlew jacocoTestReport
 
 lint:
-	gradle checkstyleMain
+	./gradlew checkstyleMain
 
 build-run: build run
 
