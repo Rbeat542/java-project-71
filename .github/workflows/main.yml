@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
         
     steps:
       - uses: actions/checkout@v4
@@ -33,5 +36,5 @@ jobs:
           JACOCO_SOURCE_PATH: app/src/main/java
         with:
           debug: true
-          coverageCommand: gradle jacocoReport
+          coverageCommand: make report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco     
