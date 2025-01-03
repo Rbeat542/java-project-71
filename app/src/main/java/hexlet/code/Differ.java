@@ -51,6 +51,9 @@ public class Differ  {
             line = "{" + line + "\n" + "}";
             line = line.replace(",\n}", "\n}");
         }
+        else {
+            line = line.substring(1);
+        }
         return line;
     }
 
