@@ -27,7 +27,7 @@ public class Plain {
         String value2ToString = preFormat(value2);
         if (operation.equals("changed")) {
             return "Property '" + key + "' was updated. From " + value1ToString
-                    + " to " + value2ToString; //to fix complex value
+                    + " to " + value2ToString;
         } else if (operation.equals("removed")) {
             return "Property '" + key + "' was removed";
         } else if (operation.equals("added")) {

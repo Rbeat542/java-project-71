@@ -1,6 +1,11 @@
 package hexlet.code;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Differ  {
 
@@ -30,7 +35,7 @@ public class Differ  {
     public static String getOperation(String key, HashMap map1, HashMap map2) {
         String operation = "";
         if (map1.containsKey(key) && map2.containsKey(key)
-                && !Objects.equals(map1.get(key), map2.get(key))) {   // to optimize
+                && !Objects.equals(map1.get(key), map2.get(key))) {
             operation = "changed";
         } else if (map1.containsKey(key) && !map2.containsKey(key)) {
             operation = "removed";
