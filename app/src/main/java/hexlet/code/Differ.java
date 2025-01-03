@@ -51,8 +51,11 @@ public class Differ  {
             line = "{" + line + "\n" + "}";
             line = line.replace(",\n}", "\n}");
         }
-        else {
+        if (format.equals("plain")) {
             line = line.substring(1);
+        }
+        else {
+
         }
         return line;
     }
