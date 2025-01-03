@@ -1,9 +1,6 @@
 package hexlet.code;
 
-import java.util.Objects;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public class Differ  {
 
@@ -20,7 +17,9 @@ public class Differ  {
             var value1 = json1Map.get(key);
             var value2 = json2Map.get(key);
             String operation = getOperation(key, json1Map, json2Map);
-            String newLine = Formatter.formatter(format, operation, key, value1, value2);  // to optimize
+            var params = List.of(format, operation, key);
+            var parameters = new ArrayList<>(params);
+            String newLine = Formatter.formatter(parameters, value1, value2);  // to optimize
             if (!Objects.equals(null, newLine)) {
                 line = line + "\n" + newLine;
             }
