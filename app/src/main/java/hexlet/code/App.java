@@ -48,7 +48,8 @@ class App implements Callable<Integer> {
         if (!Files.exists(path2)) {
             throw new Exception("File '" + path2 + "' does not exist");
         }
-        String resultOfComparison = Differ.generate(path1, path2, format);
+
+        String resultOfComparison = Differ.generate(path1.toString(), path2.toString(), format);
         System.out.println(resultOfComparison);
         return 0;
     }

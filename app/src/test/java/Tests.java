@@ -5,21 +5,14 @@ import static hexlet.code.Differ.generate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class Tests {
-    static Path testfile1 = getFixturePath("file1.json");
-    static Path testfile2 = getFixturePath("file2.json");
-    static Path testfile3 = getFixturePath("file1.yml");
-    static Path testfile4 = getFixturePath("file2.yml");
-    static Path testfile5 = getFixturePath("file1.ml");
-    static Path testfile6 = getFixturePath("file9.yml");
 
-    private static Path getFixturePath(String fileName) {
-        return Paths.get("src", "test", "resources", fileName)
-           .toAbsolutePath().normalize();
-    }
+    static String testfile1 = "src/test/resources/file1.json";
+    static String testfile2 = "src/test/resources/file2.json";
+    static String testfile3 = "src/test/resources/file1.yml";
+    static String testfile4 = "src/test/resources/file2.yml";
+    static String testfile5 = "src/test/resources/file1.ml";
+    static String testfile6 = "src/test/resources/file9.yml";
 
     @Test
     public void testStylishJsonContainsString() throws Exception {

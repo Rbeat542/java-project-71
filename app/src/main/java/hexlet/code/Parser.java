@@ -6,10 +6,12 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class Parser {
-    public static HashMap<String, Object> parseFile(Path path) throws Exception {
+    public static HashMap<String, Object> parseFile(String pathToFile) throws Exception {
+        Path path = Paths.get(pathToFile.toString()).toAbsolutePath().normalize();
         byte[] file1Contents = Files.readAllBytes(path);
         var mapper = chooseMapper(path);
         HashMap<String, Object> result = mapper.readValue(file1Contents,
