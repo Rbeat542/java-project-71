@@ -9,16 +9,17 @@ public class Plain {
 
     public static String preFormat(Object value) {
         String newValue = "";
-        if (!Objects.equals(value, null)) {
-            if (value instanceof Map || value instanceof List || value instanceof Array) {
+        List<String> list = List.of("HashMap", "Map","LinkedHashMap", "ArrayList", "Array", "LinkedList");
+        if (Objects.equals(value, null)) {
+            newValue = "null";
+        } else {
+            if (list.contains(value.getClass().getSimpleName())) {
                 newValue = "[complex value]";
-            } else if ("java.lang.String".equals(value.getClass().getName())) {
+            } else if ("String".equals(value.getClass().getSimpleName())) {
                 newValue = "'" + value + "'";
             } else {
                 newValue = String.valueOf(value);
             }
-        } else {
-            newValue = "null";
         }
         return newValue;
     }

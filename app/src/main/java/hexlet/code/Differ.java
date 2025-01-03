@@ -25,7 +25,7 @@ public class Differ  {
                 line = line + "\n" + newLine;
             }
         }
-        return afterFormat(line, format);
+        return finalFormatOfString(line, format);
     }
 
     public static String getOperation(String key, HashMap map1, HashMap map2) {
@@ -43,7 +43,7 @@ public class Differ  {
         return operation;
     }
 
-    public static String afterFormat(String line, String format) {
+    public static String finalFormatOfString(String line, String format) {
         if (format.equals("stylish")) {
             line = "{" + line + "\n" + "}";
         }
