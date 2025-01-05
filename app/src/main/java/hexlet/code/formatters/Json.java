@@ -1,5 +1,7 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Constant;
+
 import java.lang.reflect.Array;
 import java.util.Objects;
 
@@ -24,12 +26,12 @@ public class Json {
     public static String format(String operation, String key, Object value1, Object value2) {
         String value1ToString = preFormat(value1);
         String value2ToString = preFormat(value2);
-        if (operation.equals("nochanges")) {
+        if (Constant.NOCHANGES.equals(operation)) {
             return ("  \"" + key + "\"" + ": " + "\"" + value1ToString + "\",");
-        } else if (operation.equals("changed")) {
+        } else if (Constant.CHANGED.equals(operation)) {
             return ("  \"" + key + "\"" + ": " + "\"" + "was updated. From "
                     + value1ToString + " to " + value2ToString + "\",");
-        } else if (operation.equals("removed")) {
+        } else if (Constant.REMOVED.equals(operation)) {
             return ("  \"" + key + "\"" + ": " + "\"was removed\",");
         } else {
             return ("  \"" + key + "\"" + ": " + "\"" + "was added with value: " + value2ToString + "\",");

@@ -1,5 +1,6 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Constant;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,12 +26,12 @@ public class Plain {
     public static String format(String operation, String key, Object value1, Object value2) {
         String value1ToString = preFormat(value1);
         String value2ToString = preFormat(value2);
-        if (operation.equals("changed")) {
+        if (Constant.CHANGED.equals(operation)) {
             return "Property '" + key + "' was updated. From " + value1ToString
                     + " to " + value2ToString;
-        } else if (operation.equals("removed")) {
+        } else if (Constant.REMOVED.equals(operation)) {
             return "Property '" + key + "' was removed";
-        } else if (operation.equals("added")) {
+        } else if (Constant.ADDED.equals(operation)) {
             return "Property '" + key + "' was added with value: " + value2ToString;
         } else {
             return null;

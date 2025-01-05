@@ -27,7 +27,6 @@ public class Parser {
         } else if ((extensionOfFile.equals("yml") || extensionOfFile.equals("yaml"))) {
             return YAMLMapper.builder().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER).build();
         } else {
-            //System.out.println("Format of file(s) is wrong or not specified. Applying JSON format by default");
             throw new Exception("Format of file(s) is wrong or not specified");
         }
     }
