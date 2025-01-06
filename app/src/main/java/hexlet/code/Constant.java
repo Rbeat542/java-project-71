@@ -8,4 +8,5 @@ public final class Constant {
     public static final String REMOVED = "removed";
     public static final String NOCHANGES = "nochanges";
     public static final String CHANGED = "changed";
+    public static final Integer TESTNUMBER = 200;
 }

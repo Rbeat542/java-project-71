@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Call  {
+public final class Call  {
     private final File file1;
     private final File file2;
     private final String format;

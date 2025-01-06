@@ -37,7 +37,7 @@ public class DifferTest {
         "src/test/resources/file1.json, src/test/resources/file2.json, stylish",
         "src/test/resources/file1.yml, src/test/resources/file2.yml, stylish",
     })
-    public void testCompareStylish(String path1, String path2, String format) throws Exception {
+    static void testCompareStylish(String path1, String path2, String format) throws Exception {
         String expected = "    chars1: [a, b, c]\n  - chars2: [d, e, f]";
         String results = Differ.generate(path1, path2, format);
         assertTrue(results.contains(expected));
@@ -48,7 +48,7 @@ public class DifferTest {
         "src/test/resources/file1.json, src/test/resources/file2.json, plain",
         "src/test/resources/file1.yml, src/test/resources/file2.yml, plain",
     })
-    void testComparePlain(String path1, String path2, String format) throws Exception {
+    static void testComparePlain(String path1, String path2, String format) throws Exception {
         String expected = "Property 'chars2' was updated. From [complex value] to false";
         String results = Differ.generate(path1, path2, format);
         assertTrue(results.contains(expected));
@@ -57,7 +57,7 @@ public class DifferTest {
     }
 
     @Test
-    void testCompareJsonJson() throws Exception {
+    public void testCompareJsonJson() throws Exception {
         String expected = "\"chars2\": \"was updated. From [d, e, f] to false\"";
         String results2 = Differ.generate(testfile1, testfile2, "json");
         assertTrue(results2.contains(expected));
