@@ -5,11 +5,12 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import java.io.File;
+import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
 
-public class App {
+public class App implements Callable<Integer> {
     @Option(names = {"-f", "--format="}, description = "output format [default: stylish]", paramLabel = "format")
     private static String format = "stylish";
 
@@ -29,10 +30,14 @@ public class App {
             paramLabel = "filepath2")
     private static File file2 = new File("file2.json");
 
-    public static void main(String... args) throws Exception {
-        int exitCode = new CommandLine(new Call(file1, file2, format)).execute(args);
-        System.exit(exitCode);
+    @Override
+    public Integer call() throws Exception {
+        Call callMethod = new Call(file1, file2, format);
+        return callMethod.execute();
     }
 
-
+    public static void main(String[] args) {
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
+    }
 }

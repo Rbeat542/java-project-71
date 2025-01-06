@@ -4,9 +4,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.Callable;
 
-public class Call implements Callable<Integer> {
+public class Call  {
     private final File file1;
     private final File file2;
     private final String format;
@@ -17,8 +16,7 @@ public class Call implements Callable<Integer> {
         this.format = format;
     }
 
-    @Override
-    public Integer call() throws Exception {
+    public Integer execute() throws Exception {
         Path path1 = Paths.get(file1.toString()).toAbsolutePath().normalize();
         if (!Files.exists(path1)) {
             throw new Exception("File '" + path1 + "' does not exist");

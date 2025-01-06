@@ -10,7 +10,7 @@ public class CallTest {
     public void testCallExecution() throws Exception {
         Call call = new Call(new File("src/test/resources/file2.json"),
                 new File("src/test/resources/file2.json"), "stylish");
-        int result = call.call();
+        int result = call.execute();
         assertEquals(0, result);
     }
 
@@ -19,7 +19,7 @@ public class CallTest {
         Call call = new Call(new File("src/test/resources/file100.json"),
                 new File("src/test/resources/file2.json"), "stylish");
         assertThrows(Exception.class, () -> {
-            call.call();
+            call.execute();
             throw new Exception();
         });
     }
