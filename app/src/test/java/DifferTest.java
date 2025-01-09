@@ -9,25 +9,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DifferTest {
 
-    private static String testfile1 = "src/test/resources/file1.json";
-    private static String testfile2 = "src/test/resources/file2.json";
-    private static String testfile3 = "src/test/resources/file1.yml";
-    private static String testfile4 = "src/test/resources/file2.yml";
-    private static String testfile5 = "src/test/resources/file1.ml";
-    private static String testfile6 = "src/test/resources/fi4.yml";
-
     @Test
     public void testDifferNoSuchFileException() throws Exception {
+        String testfile1 = "src/test/resources/fi4.yml";
+        String testfile2 = "src/test/resources/file1.yml";
+
         assertThrows(NoSuchFileException.class, () -> {
-            Differ.generate(testfile6, testfile3, "plain");
+            Differ.generate(testfile1, testfile2, "plain");
             throw new Exception();
         });
     }
 
     @Test
     public void testGenerateUknownFileTypeException() throws Exception {
+        String testfile1 = "src/test/resources/file1.ml";
+        String testfile2 = "src/test/resources/file2.yml";
+
         assertThrows(Exception.class, () -> {
-            Differ.generate(testfile5, testfile4, "plain");
+            Differ.generate(testfile1, testfile2, "plain");
             throw new Exception();
         });
     }
@@ -39,7 +38,9 @@ public class DifferTest {
     })
     static void testCompareStylish(String path1, String path2, String format) throws Exception {
         String expected = "    chars1: [a, b, c]\n  - chars2: [d, e, f]";
+
         String results = Differ.generate(path1, path2, format);
+
         assertTrue(results.contains(expected));
     }
 
@@ -50,7 +51,9 @@ public class DifferTest {
     })
     static void testComparePlain(String path1, String path2, String format) throws Exception {
         String expected = "Property 'chars2' was updated. From [complex value] to false";
+
         String results = Differ.generate(path1, path2, format);
+
         assertTrue(results.contains(expected));
         assertNotNull(path1);
         assertNotNull(path2);
@@ -58,8 +61,12 @@ public class DifferTest {
 
     @Test
     public void testCompareJsonJson() throws Exception {
+        String testfile1 = "src/test/resources/file1.json";
+        String testfile2 = "src/test/resources/file2.json";
         String expected = "\"chars2\": \"was updated. From [d, e, f] to false\"";
+
         String results2 = Differ.generate(testfile1, testfile2, "json");
+
         assertTrue(results2.contains(expected));
     }
 }
